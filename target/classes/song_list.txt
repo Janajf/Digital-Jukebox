@@ -1,0 +1,25 @@
+1|Money Trees|good kid m.A.A.d city|Kendrick Lamar|Hip Hop|2012-10-22|387
+2|Aston Martin Music|Teflon Don|Rick Ross|Hip Hop|2010-10-05|271
+3|Going Bad|Championships|Meek Mill|Hip Hop|2018-11-30|180
+4|N 2 Deep|Certified Lover Boy|Drake|Hip Hop|2021-09-03|273
+5|Life is Good|High Off Life|Future|Hip Hop|2020-05-15|314
+6|pushin P|DS4EVER|Gunna|Hip Hop|2022-01-07|136
+7|Go Crazy|Slime & B|Chris Brown|Hip Hop|2020-05-08|176
+8|Bubbly|Punk|Young Thug|Hip Hop|2021-10-15|165
+9|No Role Modelz|2014 Forest Hills Drive|J. Cole|Hip Hop|2014-12-09|292
+10|What You Know Bout Love|Shoot For The Stars Ait For The Moon|Pop Smoke|Hip Hop|2020-07-03|159
+11|Peru|Peru|Fireboy DML|Afrobeats|2022-02-11|186
+12|Essence|Made In Lagos|WizKid|Afrobeats|2020-10-29|247
+13|Come Closer|Sounds From The Other Side|WizKid|Afrobeats|2017-07-14|210
+14|Joro|Joro|WizKid|Afrobeats|2019-09-30|262
+15|Toast|Rapture EP|Koffee|Afrobeats|2019-03-14|191
+16|P.Y.T (Pretty Young Thing)|Thriller|Michael Jackson|Pop|1982-11-30|239
+17|Remember the Time|Dangerous|Michael Jackson|Pop|1991-11-13|239
+18|Beat It|Thriller|Michael Jackson|Pop|1982-11-30|258
+19|Human Nature|Thriller|Michael Jackson|Pop|1982-11-30|246
+20|Billie Jean|Thriller|Michael Jackson|Pop|1982-11-30|294
+21|Love On The Brain|ANTI(Deluxe)|Rihanna|Pop|2016-01-28|224
+22|Needed Me|ANTI(Deluxe)|Rihanna|Pop|2016-01-28|192
+23|U Know What's Up|Where I Wanna Be|Donell Jones|R&B|1999-08-03|239
+24|Can We Talk|I'm Ready|Tevin Campbell|R&B|1993-10-26|286
+25|Love Like This|Keep the Faith|Faith Evans|R&B|1998-09-15|241

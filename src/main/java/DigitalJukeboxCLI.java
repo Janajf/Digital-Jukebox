@@ -2,6 +2,7 @@
 import api.genius.model.Hit;
 import api.genius.services.GeniusApiService;
 import org.springframework.web.client.RestTemplate;
+import services.ConsoleService;
 
 import java.io.FileNotFoundException;
 import java.util.List;
@@ -11,6 +12,10 @@ public class DigitalJukeboxCLI {
 
     private Menu menu;
     private DigitalJukebox digitalJukebox;
+
+    private final ConsoleService consoleService = new ConsoleService();
+
+    private final GeniusApiService geniusApiService = new GeniusApiService();
 
     private String[] menuOptions = MAIN_MENU_OPTIONS;
 
@@ -40,9 +45,11 @@ public class DigitalJukeboxCLI {
             System.out.println("Could not load catalog " + e.getMessage());
         }
 
+        // test API
         GeniusApiService geniusApiService = new GeniusApiService();
-
         Hit[] hits = geniusApiService.getHits("The Weather");
+
+
 
         DigitalJukebox digitalJukebox = new DigitalJukebox(catalog);
 
@@ -50,10 +57,10 @@ public class DigitalJukeboxCLI {
         cli.run();
     }
 
-    private static final String MAIN_MENU_OPTION_SEARCH_SONG = "Search";
-    private static final String MAIN_MENU_OPTION_LISTEN_TO_SONG = "Listen";
+    private static final String MAIN_MENU_SEARCH_FOR_SONG_RECOMMENDATION = "Search for song recommendation";
+    private static final String MAIN_MENU_SEARCH_FOR_SONG_LYRICS = "Search for song lyrics";
     private static final String MAIN_MENU_CLOSE_APPLICATION = "Exit";
-    private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_OPTION_SEARCH_SONG, MAIN_MENU_OPTION_LISTEN_TO_SONG, MAIN_MENU_CLOSE_APPLICATION};
+    private static final String[] MAIN_MENU_OPTIONS = {MAIN_MENU_SEARCH_FOR_SONG_RECOMMENDATION, MAIN_MENU_SEARCH_FOR_SONG_LYRICS, MAIN_MENU_CLOSE_APPLICATION};
 
     private static final String SEARCH_MENU_OPTION_SEARCH_ARTIST = "Artist";
     private static final String SEARCH_MENU_OPTION_SEARCH_ALBUM = "Album";
@@ -71,7 +78,7 @@ public class DigitalJukeboxCLI {
         while (runProgram) {
             String choice = (String) menu.getChoiceFromOptions(menuOptions);
 
-            if (choice.equals(MAIN_MENU_OPTION_SEARCH_SONG)) {
+            if (choice.equals(MAIN_MENU_SEARCH_FOR_SONG_RECOMMENDATION)) {
                 System.out.println("Search by artist, album, or genre: ");
 
                 List<Song> songs;
@@ -124,6 +131,24 @@ public class DigitalJukeboxCLI {
                 Song song = catalog.getSongByTitle(songChoice);
 
                 System.out.println(song);
+
+            } else if(choice.equals(MAIN_MENU_SEARCH_FOR_SONG_LYRICS)){
+                consoleService.printSearchLyrics();
+
+                String songTitle = consoleService.promptForString("Please enter song title:");
+
+                Hit[] hits = geniusApiService.getHits(songTitle);
+
+
+                for(Hit hit: hits){
+                    System.out.println(hit.getResult().getTitle());
+                    System.out.println(hit.getResult().getArtistNames());
+                    System.out.println(hit.getResult().getId());
+                    System.out.println(" ");
+
+
+                }
+
             }
 
 

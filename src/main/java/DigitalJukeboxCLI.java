@@ -5,6 +5,7 @@ import org.springframework.web.client.RestTemplate;
 import services.ConsoleService;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,8 +29,6 @@ public class DigitalJukeboxCLI {
     public DigitalJukeboxCLI(Menu menu, DigitalJukebox digitalJukebox) {
         this.menu = menu;
         this.digitalJukebox = digitalJukebox;
-
-
     }
 
     public static void main(String[] args) {
@@ -50,7 +49,6 @@ public class DigitalJukeboxCLI {
         Hit[] hits = geniusApiService.getHits("The Weather");
 
 
-
         DigitalJukebox digitalJukebox = new DigitalJukebox(catalog);
 
         DigitalJukeboxCLI cli = new DigitalJukeboxCLI(menu, digitalJukebox);
@@ -66,12 +64,6 @@ public class DigitalJukeboxCLI {
     private static final String SEARCH_MENU_OPTION_SEARCH_ALBUM = "Album";
     private static final String SEARCH_MENU_CLOSE_SEARCH_GENRE = "Genre";
     private static final String[] SEARCH_MENU_OPTIONS = {SEARCH_MENU_OPTION_SEARCH_ARTIST, SEARCH_MENU_OPTION_SEARCH_ALBUM, SEARCH_MENU_CLOSE_SEARCH_GENRE};
-
-    private static final String PURCHASE_MENU_OPTION_FEED_MONEY = "View Songs";
-    private static final String PURCHASE_MENU_OPTION_SELECT_PRODUCT = "Select Song";
-    private static final String PURCHASE_MENU_FINISH_TRANSACTION = "Finish Listening";
-    private static final String[] PURCHASE_MENU_OPTIONS = {PURCHASE_MENU_OPTION_FEED_MONEY, PURCHASE_MENU_OPTION_SELECT_PRODUCT, PURCHASE_MENU_FINISH_TRANSACTION};
-
 
     public void run() {
         boolean runProgram = true;
@@ -94,7 +86,7 @@ public class DigitalJukeboxCLI {
 
                     String artistChoice = (String) menu.getChoiceFromOptions(artistArray);
 
-                    System.out.println("You selected the artist " + artistChoice);
+                    System.out.println("You selected the artist: " + artistChoice);
                     songs = catalog.getSongsByArtist(artistChoice);
 
                 } else if (searchChoice.equals(SEARCH_MENU_OPTION_SEARCH_ALBUM)) {
@@ -104,7 +96,7 @@ public class DigitalJukeboxCLI {
 
                     String albumsChoice = (String) menu.getChoiceFromOptions(albumsArray);
 
-                    System.out.println("You selected the album " + albumsChoice);
+                    System.out.println("You selected the album: " + albumsChoice);
 
                     songs = catalog.getSongsByAlbum(albumsChoice);
 
@@ -115,7 +107,7 @@ public class DigitalJukeboxCLI {
 
                     String genreChoice = (String) menu.getChoiceFromOptions(genreArray);
 
-                    System.out.println("You selected the genre " + genreChoice);
+                    System.out.println("You selected the genre: " + genreChoice);
                     songs = catalog.getSongsByGenre(genreChoice);
 
                 }
@@ -126,7 +118,7 @@ public class DigitalJukeboxCLI {
 
                 }
                 String songChoice = (String) menu.getChoiceFromOptions(songArray);
-                System.out.println("You selected the song " + songChoice);
+                System.out.println("You selected the song: " + songChoice);
 
                 Song song = catalog.getSongByTitle(songChoice);
 
@@ -139,13 +131,27 @@ public class DigitalJukeboxCLI {
 
                 Hit[] hits = geniusApiService.getHits(songTitle);
 
+                List<Song> songs = new ArrayList<>();
+
+                for(Hit hit: hits){
+
+                    Song song = Song.builder()
+                            .title(hit.getResult().getTitle())
+                            .artist(hit.getResult().getArtistNames())
+                            .id(hit.getResult().getId())
+                            .build();
+
+                    songs.add(song);
+
+                }
+
+                Object songChoice = (String) menu.getChoiceFromOptions(songs.toArray(new Object[0]));
 
                 for(Hit hit: hits){
                     System.out.println(hit.getResult().getTitle());
                     System.out.println(hit.getResult().getArtistNames());
                     System.out.println(hit.getResult().getId());
                     System.out.println(" ");
-
 
                 }
 

@@ -1,5 +1,10 @@
-import java.util.Date;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(toBuilder = true)
 public class Song {
 
     private String title;
@@ -10,13 +15,20 @@ public class Song {
     private int length;
     private int id;
 
-    //constructor
+
+
     public Song(String title, String album, String artist,String genre, String releaseDate, int length){
         this.title = title;
         this.album = album;
         this.artist = artist;
         this.genre = genre;
         this.releaseDate = releaseDate;
+        this.length = length;
+    }
+
+    public Song(String title,String artist,int length){
+        this.title = title;
+        this.artist = artist;
         this.length = length;
     }
 

@@ -5,9 +5,7 @@ import org.springframework.web.client.RestTemplate;
 import services.ConsoleService;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class DigitalJukeboxCLI {
 
@@ -127,13 +125,19 @@ public class DigitalJukeboxCLI {
             } else if(choice.equals(MAIN_MENU_SEARCH_FOR_SONG_LYRICS)){
                 consoleService.printSearchLyrics();
 
-                String songTitle = consoleService.promptForString("Please enter song title:");
+                String songTitle = consoleService.promptForString("Please enter the artist's name:");
 
                 Hit[] hits = geniusApiService.getHits(songTitle);
 
                 List<Song> songs = new ArrayList<>();
 
+                Map<String,Song> searchResults = new HashMap<>();
+
+                List<String> songNames = new ArrayList<>();
+
                 for(Hit hit: hits){
+
+                    String title = hit.getResult().getTitle();
 
                     Song song = Song.builder()
                             .title(hit.getResult().getTitle())
@@ -141,19 +145,23 @@ public class DigitalJukeboxCLI {
                             .id(hit.getResult().getId())
                             .build();
 
+                    searchResults.put(title, song);
+
                     songs.add(song);
 
-                }
-
-                Object songChoice = (String) menu.getChoiceFromOptions(songs.toArray(new Object[0]));
-
-                for(Hit hit: hits){
-                    System.out.println(hit.getResult().getTitle());
-                    System.out.println(hit.getResult().getArtistNames());
-                    System.out.println(hit.getResult().getId());
-                    System.out.println(" ");
+                    songNames.add(song.getTitle());
 
                 }
+
+                Object songChoice = menu.getChoiceFromOptions(songNames.toArray(new Object[0]));
+
+                // TODO consider refactoring into method on ConsoleService
+
+                System.out.println("***************");
+                System.out.println(" ");
+                System.out.println("You selected the song: " + songChoice.toString());
+                System.out.println(" ");
+                System.out.println("***************");
 
             }
 
